@@ -1,0 +1,70 @@
+<!-- templates/register.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Register</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.10/lottie.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            <div>
+                <h3>Please register with us !</h3>
+            </div>
+            <div id="lottie-container"></div>
+        </div>
+        <div class="right-column">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            <form action="/register" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+
+                <button type="submit">Register</button>
+
+                <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+            </form>
+
+        </div>
+        <script>
+            // Replace 'your-animation.json' with the path to your Lottie animation file
+            const animationPath = '/static/animation/register.json';
+
+            // Set your desired width and height
+            const containerWidth = 400;
+            const containerHeight = 400;
+
+            // Load the Lottie animation into the specified container with the specified size
+            const animationContainer = document.getElementById('lottie-container');
+            animationContainer.style.width = `${containerWidth}px`;
+            animationContainer.style.height = `${containerHeight}px`;
+
+            const animation = lottie.loadAnimation({
+                container: animationContainer,
+                renderer: 'svg', // You can use 'canvas' as well
+                loop: true,
+                autoplay: true,
+                path: animationPath,
+            });
+        </script>
+    </div>
+</body>
+</html>
