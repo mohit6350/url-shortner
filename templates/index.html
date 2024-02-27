@@ -5,10 +5,13 @@
 </head>
 <body>
     <h1>URL Shortener</h1>
-    <form action="/short_url" method="post">
+    <form action="/" method="post">
         <label for="long_url">Enter URL:</label>
         <input type="text" id="long_url" name="long_url" required>
         <button type="submit">Shorten</button>
     </form>
+    {% if shortened_url %}
+        <p>Shortened URL: <a href="{{ shortened_url }}">{{ shortened_url }}</a></p>
+    {% endif %}
 </body>
 </html>

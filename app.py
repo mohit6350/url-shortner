@@ -1,4 +1,5 @@
-import os,secrets
+import secrets, hashlib
+import pyshorteners
 
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
@@ -8,6 +9,7 @@ from helpers import login_required
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
+type_tiny = pyshorteners.Shortener()
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -35,4 +37,19 @@ def register():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        # Handle form submission and generate the shortened URL
+        long_url = request.form.get('long_url')
+        
+        # Add your logic to generate the shortened URL (this can be a function or an API call)
+        shortened_url = generate_short_url(long_url)
+        
+        return render_template('index.html', shortened_url=shortened_url)
+
+    # If it's a GET request or the form is not submitted, just render the index page
     return render_template('index.html')
+
+def generate_short_url(long_url):
+    short_url = type_tiny.tinyurl.short(long_url)
+    return short_url
+
