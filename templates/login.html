@@ -7,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <title>Login</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.10/lottie.min.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="left-column">
             <h1>Welcome to url shortner !</h1>
             <h3>Small, Simple and Super-powerful</h3>
+            <div id="lottie-container"></div>
         </div>
         <div class="right-column">
             {% with messages = get_flashed_messages() %}
@@ -34,5 +36,26 @@
             </form>
         </div>
     </div>
+    <script>
+        // Replace 'your-animation.json' with the path to your Lottie animation file
+        const animationPath = '/static/animation/login.json';
+
+        // Set your desired width and height
+        const containerWidth = 400;
+        const containerHeight = 400;
+
+        // Load the Lottie animation into the specified container with the specified size
+        const animationContainer = document.getElementById('lottie-container');
+        animationContainer.style.width = `${containerWidth}px`;
+        animationContainer.style.height = `${containerHeight}px`;
+
+        const animation = lottie.loadAnimation({
+            container: animationContainer,
+            renderer: 'svg', // You can use 'canvas' as well
+            loop: true,
+            autoplay: true,
+            path: animationPath,
+        });
+    </script>
 </body>
 </html>
