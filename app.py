@@ -10,6 +10,9 @@ from helpers import login_required
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 type_tiny = pyshorteners.Shortener()
+app.config['SECRET_KEY'] = secrets.token_hex(16)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chotu.db'  # Change the database name if needed
+db = SQLAlchemy(app)
 
 
 @app.route('/login', methods=['GET', 'POST'])
