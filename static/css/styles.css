@@ -15,11 +15,25 @@ body {
     height: 100%;
 }
 
-.left-column,
+.left-column {
+    flex: 1;
+    padding: 20px;
+    margin-left: 100px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.animation{
+    align-items: center;
+    margin-left: 100px;
+    margin-bottom: 80px;
+}
+
 .right-column {
     flex: 1;
     padding: 20px;
     box-sizing: border-box;
+    align-items: center;
 }
 
 .left-column h1,

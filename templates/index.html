@@ -1,17 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        a.logout-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
     <h1>URL Shortener</h1>
-    <form action="/" method="post">
+
+    <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+
+    <form action="{{ url_for('index') }}" method="post">
         <label for="long_url">Enter URL:</label>
         <input type="text" id="long_url" name="long_url" required>
+
+        <label for="tag">Tag:</label>
+        <input type="text" id="tag" name="tag">
+
         <button type="submit">Shorten</button>
     </form>
+
     {% if shortened_url %}
         <p>Shortened URL: <a href="{{ shortened_url }}">{{ shortened_url }}</a></p>
+    {% endif %}
+
+    {% if all_transactions %}
+        <h2>All Transactions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Original URL</th>
+                    <th>Short URL</th>
+                    <th>Tag</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in all_transactions %}
+                    <tr>
+                        <td>{{ transaction['original_url'] }}</td>
+                        <td><a href="{{ transaction['short_url'] }}">{{ transaction['short_url'] }}</a></td>
+                        <td>{{ transaction['tag'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    {% if previous_transactions %}
+        <h2>Previous Transactions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Original URL</th>
+                    <th>Short URL</th>
+                    <th>Tag</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in previous_transactions %}
+                    <tr>
+                        <td>{{ transaction['original_url'] }}</td>
+                        <td><a href="{{ transaction['short_url'] }}">{{ transaction['short_url'] }}</a></td>
+                        <td>{{ transaction['tag'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     {% endif %}
 </body>
 </html>
